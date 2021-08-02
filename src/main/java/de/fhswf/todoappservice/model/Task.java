@@ -21,7 +21,16 @@ public class Task {
     @ManyToOne
     private Status status;
 
-    private String name;
+    private String title;
+
+    private String description;
+
+    private Date dueDate;
+
+    @Column(columnDefinition = "boolean default false")
+    private boolean completed;
+
+    private Date completedDate;
 
     @CreatedDate
     private Date created;
