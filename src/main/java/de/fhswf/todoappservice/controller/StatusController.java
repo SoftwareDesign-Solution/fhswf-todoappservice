@@ -1,10 +1,9 @@
 package de.fhswf.todoappservice.controller;
 
-import de.fhswf.todoappservice.model.Project;
+import de.fhswf.todoappservice.dto.StatusDto;
 import de.fhswf.todoappservice.model.Status;
-import de.fhswf.todoappservice.model.Task;
 import de.fhswf.todoappservice.repository.StatusRepository;
-import de.fhswf.todoappservice.repository.TaskRepository;
+import org.modelmapper.ModelMapper;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
@@ -24,8 +23,18 @@ public class StatusController {
     }
 
     @GetMapping("/status/{id}")
-    public Optional<Status> getStatusById(@PathVariable("id") int id) {
-        return this.statusRepository.findById(id);
+    public StatusDto getStatusById(@PathVariable("id") int id) {
+
+        Optional<Status> status = this.statusRepository.findById(id);
+
+        System.out.println(status.get().getName());
+
+        ModelMapper mapper = new ModelMapper();
+
+        StatusDto statusDto = mapper.map(status.get(), StatusDto.class);
+
+        return statusDto;
+
     }
 
     @PostMapping("/status")

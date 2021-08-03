@@ -6,6 +6,7 @@ import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Data
 @Entity
@@ -22,5 +23,8 @@ public class Project {
 
     @LastModifiedDate
     private Date updated;
+
+    @OneToMany
+    private List<Task> tasks;
 
 }

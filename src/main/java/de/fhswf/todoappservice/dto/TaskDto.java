@@ -1,6 +1,8 @@
-package de.fhswf.todoappservice.model;
+package de.fhswf.todoappservice.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import de.fhswf.todoappservice.model.Project;
+import de.fhswf.todoappservice.model.Status;
 import lombok.Data;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -9,19 +11,15 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Data
-@Entity
-public class Task {
+public class TaskDto {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
-    @ManyToOne
-    @JsonIgnore
-    private Project project;
+    private Integer projectId;
 
-    @ManyToOne
-    private Status status;
+    private String project;
+
+    private Integer status;
 
     private String title;
 
@@ -29,15 +27,12 @@ public class Task {
 
     private Date dueDate;
 
-    @Column(columnDefinition = "boolean default false")
     private boolean completed;
 
     private Date completedDate;
 
-    @CreatedDate
     private Date created;
 
-    @LastModifiedDate
     private Date updated;
 
 }

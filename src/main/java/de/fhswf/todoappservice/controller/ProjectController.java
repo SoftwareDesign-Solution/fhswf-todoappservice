@@ -1,7 +1,10 @@
 package de.fhswf.todoappservice.controller;
 
+import de.fhswf.todoappservice.dto.ProjectDto;
 import de.fhswf.todoappservice.model.Project;
+import de.fhswf.todoappservice.model.Task;
 import de.fhswf.todoappservice.repository.ProjectRepository;
+import org.modelmapper.ModelMapper;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,8 +25,24 @@ public class ProjectController {
     }
 
     @GetMapping("/projects/{id}")
-    public Optional<Project> getProjectById(@PathVariable("id") int id) {
-        return this.projectRepository.findById(id);
+    public ProjectDto getProjectById(@PathVariable("id") int id) {
+
+        Optional<Project> project = this.projectRepository.findById(id);
+
+        ModelMapper mapper = new ModelMapper();
+
+        ProjectDto projectDto = mapper.map(project.get(), ProjectDto.class);
+
+        return projectDto;
+
+    }
+
+    @GetMapping("/projects/{id}/tasks")
+    public List<Task> getTasksByProjectId(@PathVariable("id") int id) {
+
+        Project project = this.projectRepository.getById(id);
+        return project.getTasks();
+
     }
 
     @PostMapping("/projects")
