@@ -35,4 +35,6 @@ public class TaskDto {
 
     private Date updated;
 
+    private String value;
+
 }

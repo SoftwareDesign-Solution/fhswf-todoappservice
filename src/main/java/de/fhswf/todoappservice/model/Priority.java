@@ -7,7 +7,7 @@ import java.util.List;
 
 @Data
 @Entity
-public class Status {
+public class Priority {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -16,7 +16,7 @@ public class Status {
     private String name;
 
     @OneToMany
-    @JoinColumn(name = "status")
+    @JoinColumn(name = "priority")
     private List<Task> tasks;
 
 }

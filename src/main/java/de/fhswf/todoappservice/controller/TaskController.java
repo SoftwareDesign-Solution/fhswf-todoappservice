@@ -74,7 +74,7 @@ public class TaskController {
     public void createTask(@RequestBody Task task) { this.taskRepository.save(task); }
 
     @PutMapping("/tasks/{id}")
-    public void updateProject(@PathVariable("id") int id, @RequestBody Task task) { this.taskRepository.save(task); }
+    public void updateTask(@PathVariable("id") int id, @RequestBody Task task) { this.taskRepository.save(task); }
 
     @DeleteMapping("/tasks/{id}")
     public void deleteTask(@PathVariable("id") int id) {

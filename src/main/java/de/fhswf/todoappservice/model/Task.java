@@ -4,35 +4,52 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.util.Date;
 
 @Data
 @Entity
+@EntityListeners(AuditingEntityListener.class)
 public class Task {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @ManyToOne
-    @JsonIgnore
+    //@ManyToOne
+    //@JsonIgnore
+    @OneToOne
+    @JoinColumn(name = "project", referencedColumnName = "id")
     private Project project;
 
-    @ManyToOne
+    @OneToOne
+    @JoinColumn(name = "status", referencedColumnName = "id")
     private Status status;
+
+    @OneToOne
+    @JoinColumn(name = "priority", referencedColumnName = "id")
+    private Priority priority;
 
     private String title;
 
     private String description;
 
+    @Temporal(TemporalType.DATE)
     private Date dueDate;
 
     @Column(columnDefinition = "boolean default false")
     private boolean completed;
 
+    @Temporal(TemporalType.DATE)
     private Date completedDate;
+
+    @Temporal(TemporalType.DATE)
+    private Date startDate;
+
+    @Temporal(TemporalType.DATE)
+    private Date endDate;
 
     @CreatedDate
     private Date created;
