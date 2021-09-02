@@ -1,15 +1,9 @@
 package de.fhswf.todoappservice.controller;
 
 import de.fhswf.todoappservice.dto.TaskDto;
-import de.fhswf.todoappservice.mapping.TaskMap;
-import de.fhswf.todoappservice.mapping.TaskMap2;
 import de.fhswf.todoappservice.model.Task;
-import de.fhswf.todoappservice.repository.PriorityRepository;
-import de.fhswf.todoappservice.repository.ProjectRepository;
-import de.fhswf.todoappservice.repository.StatusRepository;
 import de.fhswf.todoappservice.repository.TaskRepository;
 import org.modelmapper.ModelMapper;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @CrossOrigin
