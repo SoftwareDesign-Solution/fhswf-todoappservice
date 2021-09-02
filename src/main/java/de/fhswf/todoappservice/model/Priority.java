@@ -19,4 +19,10 @@ public class Priority {
     @JoinColumn(name = "priority")
     private List<Task> tasks;
 
+    public Priority() {}
+
+    public Priority(Integer id) {
+        this.id = id;
+    }
+
 }

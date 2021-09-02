@@ -19,4 +19,10 @@ public class Status {
     @JoinColumn(name = "status")
     private List<Task> tasks;
 
+    public Status() {}
+
+    public Status(Integer id) {
+        this.id = id;
+    }
+
 }

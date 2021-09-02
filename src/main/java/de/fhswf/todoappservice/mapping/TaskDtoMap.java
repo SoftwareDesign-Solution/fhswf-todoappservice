@@ -8,9 +8,9 @@ public class TaskDtoMap extends PropertyMap<Task, TaskDto> {
 
     @Override
     protected void configure() {
-        map().setStatus(source.getStatus().getId());
-        map().setProject(source.getProject().getName());
-        map().setProjectId(source.getProject().getId());
+        //map().setStatus(source.getStatus().getId());
+        //map().setProject(source.getProject().getName());
+        //map().setProjectId(source.getProject().getId());
     }
 
 }

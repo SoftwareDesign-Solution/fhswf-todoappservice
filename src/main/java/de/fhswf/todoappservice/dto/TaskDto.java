@@ -15,11 +15,19 @@ public class TaskDto {
 
     private Integer id;
 
-    private Integer projectId;
+    //private Integer projectId;
 
-    private String project;
+    //private String project;
 
-    private Integer status;
+    private ProjectDto project;
+
+    //private Integer statusId;
+
+    private StatusDto status;
+
+    //private Integer priorityId;
+
+    private PriorityDto priority;
 
     private String title;
 
@@ -31,10 +39,18 @@ public class TaskDto {
 
     private Date completedDate;
 
+    private Date startDate;
+
+    private Date endDate;
+
     private Date created;
 
     private Date updated;
 
-    private String value;
+    TaskDto() {
+        this.project = new ProjectDto();
+        this.status = new StatusDto();
+        this.priority = new PriorityDto();
+    }
 
 }

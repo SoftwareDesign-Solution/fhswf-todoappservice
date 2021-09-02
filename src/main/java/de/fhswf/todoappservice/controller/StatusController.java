@@ -14,8 +14,12 @@ import java.util.*;
 public class StatusController {
 
     private StatusRepository statusRepository;
+    private ModelMapper mapper;
 
-    StatusController(StatusRepository statusRepository) { this.statusRepository = statusRepository; }
+    StatusController(StatusRepository statusRepository, ModelMapper mapper) {
+        this.statusRepository = statusRepository;
+        this.mapper = mapper;
+    }
 
     @GetMapping("/status")
     public List<Status> getAllStatus() {
@@ -26,10 +30,6 @@ public class StatusController {
     public StatusDto getStatusById(@PathVariable("id") int id) {
 
         Optional<Status> status = this.statusRepository.findById(id);
-
-        System.out.println(status.get().getName());
-
-        ModelMapper mapper = new ModelMapper();
 
         StatusDto statusDto = mapper.map(status.get(), StatusDto.class);
 

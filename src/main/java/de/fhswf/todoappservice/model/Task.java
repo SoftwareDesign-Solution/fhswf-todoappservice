@@ -1,6 +1,7 @@
 package de.fhswf.todoappservice.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -22,14 +23,17 @@ public class Task {
     //@JsonIgnore
     @OneToOne
     @JoinColumn(name = "project", referencedColumnName = "id")
+    @JsonIgnoreProperties({"tasks"})
     private Project project;
 
     @OneToOne
     @JoinColumn(name = "status", referencedColumnName = "id")
+    @JsonIgnoreProperties({"tasks"})
     private Status status;
 
     @OneToOne
     @JoinColumn(name = "priority", referencedColumnName = "id")
+    @JsonIgnoreProperties({"tasks"})
     private Priority priority;
 
     private String title;

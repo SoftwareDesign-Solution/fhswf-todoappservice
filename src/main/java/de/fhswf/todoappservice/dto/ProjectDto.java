@@ -13,8 +13,8 @@ public class ProjectDto {
 
     private String name;
 
-    private String created;
+    private Date created;
 
-    private String updated;
+    private Date updated;
 
 }

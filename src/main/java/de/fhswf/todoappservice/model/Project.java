@@ -30,4 +30,10 @@ public class Project {
     @JoinColumn(name = "project")
     private List<Task> tasks;
 
+    public Project() {}
+
+    public Project(Integer id) {
+        this.id = id;
+    }
+
 }

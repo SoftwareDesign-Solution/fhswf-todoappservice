@@ -1,7 +1,6 @@
 package de.fhswf.todoappservice.controller;
 
 import de.fhswf.todoappservice.dto.TaskDto;
-import de.fhswf.todoappservice.mapping.TaskDtoMap;
 import de.fhswf.todoappservice.model.Task;
 import de.fhswf.todoappservice.repository.TaskRepository;
 import org.modelmapper.ModelMapper;
@@ -18,27 +17,17 @@ import java.util.*;
 public class TaskController {
 
     private TaskRepository taskRepository;
+    private ModelMapper mapper;
 
-    TaskController(TaskRepository taskRepository) { this.taskRepository = taskRepository; }
+    TaskController(TaskRepository taskRepository, ModelMapper modelMapper) {
+        this.taskRepository = taskRepository;
+        this.mapper = modelMapper;
+    }
 
     @GetMapping("/tasks")
     public List<TaskDto> getAllTasks() {
 
         List<Task> tasks = this.taskRepository.findAll();
-
-        /*
-        PropertyMap<Task, TaskDto> taskMap = new PropertyMap<>() {
-            @Override
-            protected void configure() {
-                map().setStatus(source.getStatus().getId());
-                map().setProject(source.getProject().getName());
-                map().setProjectId(source.getProject().getId());
-            }
-        };
-        */
-
-        ModelMapper mapper = new ModelMapper();
-        mapper.addMappings(new TaskDtoMap());
 
         Type listType = new TypeToken<List<TaskDto>>() {}.getType();
         List<TaskDto> taskDtos = mapper.map(tasks, listType);
@@ -52,18 +41,6 @@ public class TaskController {
 
         Optional<Task> task = this.taskRepository.findById(id);
 
-        PropertyMap<Task, TaskDto> taskMap = new PropertyMap<>() {
-            @Override
-            protected void configure() {
-                map().setStatus(source.getStatus().getId());
-                map().setProject(source.getProject().getName());
-                map().setProjectId(source.getProject().getId());
-            }
-        };
-
-        ModelMapper mapper = new ModelMapper();
-        mapper.addMappings(taskMap);
-
         TaskDto taskDto = mapper.map(task.get(), TaskDto.class);
 
         return taskDto;
@@ -71,7 +48,16 @@ public class TaskController {
     }
 
     @PostMapping("/tasks")
-    public void createTask(@RequestBody Task task) { this.taskRepository.save(task); }
+    public void createTask(@RequestBody TaskDto taskDto) {
+
+        Task task = null;
+
+
+        task = mapper.map(taskDto, Task.class);
+
+        this.taskRepository.save(task);
+
+    }
 
     @PutMapping("/tasks/{id}")
     public void updateTask(@PathVariable("id") int id, @RequestBody Task task) { this.taskRepository.save(task); }

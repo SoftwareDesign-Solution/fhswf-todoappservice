@@ -4,6 +4,7 @@ import de.fhswf.todoappservice.dto.ProjectDto;
 import de.fhswf.todoappservice.model.Project;
 import de.fhswf.todoappservice.model.Task;
 import de.fhswf.todoappservice.repository.ProjectRepository;
+import org.dom4j.rule.Mode;
 import org.modelmapper.ModelMapper;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,8 +17,12 @@ import java.util.Optional;
 public class ProjectController {
 
     private ProjectRepository projectRepository;
+    private ModelMapper mapper;
 
-    ProjectController(ProjectRepository projectRepository) { this.projectRepository = projectRepository;}
+    ProjectController(ProjectRepository projectRepository, ModelMapper mapper) {
+        this.projectRepository = projectRepository;
+        this.mapper = mapper;
+    }
 
     @GetMapping("/projects")
     public List<Project> getAllProjects() {
@@ -28,8 +33,6 @@ public class ProjectController {
     public ProjectDto getProjectById(@PathVariable("id") int id) {
 
         Optional<Project> project = this.projectRepository.findById(id);
-
-        ModelMapper mapper = new ModelMapper();
 
         ProjectDto projectDto = mapper.map(project.get(), ProjectDto.class);
 
