@@ -25,4 +25,30 @@ public class Status {
         this.id = id;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (o == this)
+            return true;
+        if (!(o instanceof Status))
+            return false;
+        Status other = (Status) o;
+        boolean idEquals = (this.getId() == null && other.getId() == null)
+                || (this.getId() != null && this.getId().equals(other.getId()));
+        boolean nameEquals = (this.getName() == null && other.getName() == null)
+                || (this.getName() != null && this.getName().equals(other.getName()));
+        return idEquals && nameEquals;
+    }
+
+    @Override
+    public final int hashCode() {
+        int result = 17;
+        if (id != null) {
+            result = 31 * result + id.hashCode();
+        }
+        if (name != null) {
+            result = 31 * result + name.hashCode();
+        }
+        return result;
+    }
+
 }
