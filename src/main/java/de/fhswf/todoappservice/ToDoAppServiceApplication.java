@@ -11,31 +11,39 @@ import de.fhswf.todoappservice.model.Task;
 import org.modelmapper.ModelMapper;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
-@SpringBootApplication
+@SpringBootApplication(exclude = { SecurityAutoConfiguration.class })
 @EnableJpaAuditing
 public class ToDoAppServiceApplication {
 
-@Bean
-public ModelMapper modelMapper() {
-    ModelMapper mapper = new ModelMapper();
+    @Bean
+    public PasswordEncoder getPasswordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
 
-    // Entity -> Dto
-    mapper.createTypeMap(Priority.class, PriorityDto.class);
-    mapper.createTypeMap(Project.class, ProjectDto.class);
-    mapper.createTypeMap(Status.class, StatusDto.class);
-    mapper.createTypeMap(Task.class, TaskDto.class);
+    @Bean
+    public ModelMapper modelMapper() {
+        ModelMapper mapper = new ModelMapper();
 
-    // Dto -> Entity
-    mapper.createTypeMap(PriorityDto.class, Priority.class);
-    mapper.createTypeMap(ProjectDto.class, Project.class);
-    mapper.createTypeMap(StatusDto.class, Status.class);
+        // Entity -> Dto
+        mapper.createTypeMap(Priority.class, PriorityDto.class);
+        mapper.createTypeMap(Project.class, ProjectDto.class);
+        mapper.createTypeMap(Status.class, StatusDto.class);
+        mapper.createTypeMap(Task.class, TaskDto.class);
 
-    return mapper;
+        // Dto -> Entity
+        mapper.createTypeMap(PriorityDto.class, Priority.class);
+        mapper.createTypeMap(ProjectDto.class, Project.class);
+        mapper.createTypeMap(StatusDto.class, Status.class);
 
-}
+        return mapper;
+
+    }
 
     public static void main(String[] args) {
         SpringApplication.run(ToDoAppServiceApplication.class, args);
